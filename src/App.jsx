@@ -1,7 +1,17 @@
+import { useState } from "react";
 import ChatbotIcon from "./components/ChatbotIcon";
 import ChatForm from "./components/ChatForm";
+import ChatMessage from "./components/ChatMessage";
 
 const App = () => {
+
+  const [chatHistory, setChatHistory] = useState([]);
+
+  const generateBotResponse = (history) => {
+    console.log(history);
+  }
+
+
   return (
     <div className="container">
       <div className="chatbot-popup">
@@ -21,14 +31,17 @@ const App = () => {
             <p className="message-text"> Hey there, <br /> How can I help you today? </p>
           </div>
 
-          <div className="message user-message">
-            <p className="message-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-          </div>
+          {/* Render chat history dynamically */}
+          {
+            chatHistory.map((chat, index) => (
+              <ChatMessage key={index} chat={chat} />
+            ))
+          }
         </div>
 
         {/* Chatbot Footer */}
         <div className="chat-footer">
-          <ChatForm />
+          <ChatForm chatHistory={chatHistory} setChatHistory={setChatHistory} generateBotResponse={generateBotResponse} />
         </div>
       </div>
     </div>
